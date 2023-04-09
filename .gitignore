@@ -1,0 +1,6 @@
+/pgadmindata
+/pgdata
+/directusdata
+.idea
+.vscode
+.env

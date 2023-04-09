@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgis/postgis
+    environment:
+      POSTGRES_USER: directus
+      POSTGRES_PASSWORD: Password
+      POSTGRES_DB: directus
+    ports:
+      - '5432:5432'
+    volumes:
+      - $PWD/pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: moseskamau338@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Password
+    ports:
+      - '5050:80'
+    volumes:
+      - $PWD/pgadmindata:/var/lib/pgadmin
+
+  directus:
+    image: directus/directus:9.24.0
+    environment:
+      KEY: bfMFi5HVtJkPQTX47ezF4VKcDyIVvINmcdsgN7E7rXp3y3B1hd
+      SECRET: Z8sO98Q2IbUY950xkBACA7g1ZuyI4SQXhWu6kcc8nqCw6LJVau
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+      DB_SSL__REJECT_UNAUTHORIZED: false
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: directus
+      DB_USER: directus
+      DB_PASSWORD: Password
+      DB_SSL: false
+    ports:
+      - '8055:8055'
+    depends_on:
+      - postgres
+    volumes:
+      - $PWD/directusdata/database:/directus/database
+      - $PWD/directusdata/extensions:/directus/extensions
+      - $PWD/directusdata/uploads:/directus/uploads
