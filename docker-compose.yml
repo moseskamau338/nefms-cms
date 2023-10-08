@@ -23,7 +23,7 @@ services:
       - $PWD/pgadmindata:/var/lib/pgadmin
 
   directus:
-    image: directus/directus:9.24.0
+    image: directus/directus
     environment:
       KEY: '${KEY}'
       SECRET: '${SECRET}'
