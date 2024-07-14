@@ -12,19 +12,10 @@ services:
     volumes:
       - $PWD/pgdata:/var/lib/postgresql/data
 
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    environment:
-      PGADMIN_DEFAULT_EMAIL: '${KEY}'
-      PGADMIN_DEFAULT_PASSWORD: '${SECRET}'
-    ports:
-      - '5050:80'
-    volumes:
-      - $PWD/pgadmindata:/var/lib/pgadmin
-
   directus:
     image: directus/directus
     environment:
+      PUBLIC_URL: 'https://cms.nefms.health'
       KEY: '${KEY}'
       SECRET: '${SECRET}'
       ADMIN_EMAIL: '${ADMIN_EMAIL}'
@@ -51,6 +42,16 @@ services:
       STORAGE_S3_BUCKET: '${STORAGE_S3_BUCKET}'
       STORAGE_S3_ENDPOINT: '${STORAGE_S3_ENDPOINT}'
       STORAGE_S3_VISIBILITY: '${STORAGE_S3_VISIBILITY}'
+      EMAIL_VERIFY_SETUP: "true"
+      EMAIL_FROM: "${EMAIL_FROM}"
+      EMAIL_TRANSPORT: "${EMAIL_TRANSPORT}"
+      EMAIL_SMTP_HOST: "${EMAIL_SMTP_HOST}"
+      EMAIL_SMTP_PORT: "${EMAIL_SMTP_PORT}"
+      EMAIL_SMTP_USER: "${EMAIL_SMTP_USER}"
+      EMAIL_SMTP_PASSWORD: "${EMAIL_SMTP_PASSWORD}"
+      EMAIL_SMTP_POOL: "${EMAIL_SMTP_POOL}"
+      EMAIL_SMTP_SECURE: "${EMAIL_SMTP_SECURE}"
+      EMAIL_SMTP_IGNORE_TLS: "${EMAIL_SMTP_IGNORE_TLS}"
     ports:
       - '8055:8055'
     depends_on:
